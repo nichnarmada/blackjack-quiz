@@ -1,13 +1,66 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/7C8G4m4XH5R
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import { Button } from "@/components/ui/button"
+"use client"
 
-export default function Component() {
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { QuizChoices } from "./quizChoices"
+
+const choices = ["hit", "stand", "double", "split", "surrender"]
+
+const questions = [
+  {
+    dealer: "10",
+    player: ["6", "5"],
+  },
+  {
+    dealer: "10",
+    player: ["6", "5"],
+  },
+  {
+    dealer: "10",
+    player: ["6", "5"],
+  },
+  {
+    dealer: "10",
+    player: ["6", "5"],
+  },
+  {
+    dealer: "10",
+    player: ["6", "5"],
+  },
+]
+
+const QuizSchema = z.object({
+  questions: z
+    .array(
+      z.object({
+        answer: z.enum(["hit", "stand", "double", "split", "surrender"]),
+      })
+    )
+    .length(5),
+})
+
+export default function Quiz() {
+  const form = useForm<z.infer<typeof QuizSchema>>({
+    resolver: zodResolver(QuizSchema),
+  })
+
+  function onSubmit(data: z.infer<typeof QuizSchema>) {
+    console.log("Submitted data:", data)
+  }
+
   return (
-    <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
+    <div className="prose container mx-auto px-4 py-12 md:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold">Quiz Time</h1>
@@ -16,30 +69,40 @@ export default function Component() {
           </p>
         </div>
         <div className="mt-10 space-y-8">
-          <div className="bg-background rounded-lg p-6 shadow-sm">
-            <h2 className="text-2xl font-bold mb-4">Question 1</h2>
-            <p className="mb-4">What is the capital city of France?</p>
-            <div className="grid grid-cols-1 gap-4">
-              <button className="bg-muted rounded-md px-4 py-2 hover:bg-accent hover:text-accent-foreground transition-colors">
-                Paris
-              </button>
-              <button className="bg-muted rounded-md px-4 py-2 hover:bg-accent hover:text-accent-foreground transition-colors">
-                London
-              </button>
-              <button className="bg-muted rounded-md px-4 py-2 hover:bg-accent hover:text-accent-foreground transition-colors">
-                Madrid
-              </button>
-              <button className="bg-muted rounded-md px-4 py-2 hover:bg-accent hover:text-accent-foreground transition-colors">
-                Berlin
-              </button>
-            </div>
-            <div className="mt-6 flex justify-end">
-              <Button>Next</Button>
-            </div>
+          <div className="bg-background rounded-lg p-6">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="w-2/3 space-y-6"
+              >
+                {questions.map((question, index) => (
+                  <FormField
+                    control={form.control}
+                    name="questions"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <h2>Question {index + 1}</h2>
+                        <FormLabel>
+                          Dealer has a {question.dealer} card. You have the{" "}
+                          {question.player} cards.
+                        </FormLabel>
+                        <FormControl>
+                          <QuizChoices
+                            choices={choices}
+                            onValueChange={field.onChange}
+                            // defaultValue={field.value}
+                            className="flex flex-col space-y-1"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ))}
+                <Button type="submit">Submit</Button>
+              </form>
+            </Form>
           </div>
-        </div>
-        <div className="mt-10 text-center">
-          <p className="text-2xl font-bold">Your Score: 0/1</p>
         </div>
       </div>
     </div>
