@@ -14,9 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { QuizChoices } from "./quizChoices"
-import { questionList } from "@/types/quiz"
-
-const choices = ["hit", "stand", "double", "split", "surrender"]
+import { choices, questionList } from "@/types/quiz"
 
 const questions: questionList = {
   q1: {
@@ -42,11 +40,11 @@ const questions: questionList = {
 }
 
 const QuizSchema = z.object({
-  q1: z.enum(["hit", "stand", "double", "split", "surrender"]),
-  q2: z.enum(["hit", "stand", "double", "split", "surrender"]),
-  q3: z.enum(["hit", "stand", "double", "split", "surrender"]),
-  q4: z.enum(["hit", "stand", "double", "split", "surrender"]),
-  q5: z.enum(["hit", "stand", "double", "split", "surrender"]),
+  q1: choices,
+  q2: choices,
+  q3: choices,
+  q4: choices,
+  q5: choices,
 })
 
 export default function Quiz() {
@@ -87,7 +85,7 @@ export default function Quiz() {
                         </FormLabel>
                         <FormControl>
                           <QuizChoices
-                            choices={choices}
+                            choices={choices.options}
                             onValueChange={field.onChange}
                             // defaultValue={field.value}
                             className="flex flex-col space-y-1"

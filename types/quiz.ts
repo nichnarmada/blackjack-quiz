@@ -1,3 +1,5 @@
+import { z } from "zod"
+
 export type question = {
   dealer: string
   player: string[]
@@ -10,3 +12,5 @@ export type questionList = {
   q4: question
   q5: question
 }
+
+export const choices = z.enum(["hit", "stand", "double", "split", "surrender"])
