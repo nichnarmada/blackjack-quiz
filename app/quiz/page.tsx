@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { QuizChoices } from "./quizChoices"
 import { choices, questionList } from "@/types/quiz"
+import { useRouter } from "next/navigation"
 
 const questions: questionList = {
   q1: {
@@ -48,12 +49,15 @@ const QuizSchema = z.object({
 })
 
 export default function Quiz() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof QuizSchema>>({
     resolver: zodResolver(QuizSchema),
   })
 
   function onSubmit(data: z.infer<typeof QuizSchema>) {
     console.log("Submitted data:", data)
+    router.push("/result")
   }
 
   return (
@@ -81,7 +85,7 @@ export default function Quiz() {
                         <h2>Question {index + 1}</h2>
                         <FormLabel>
                           Dealer has a {value.dealer} card. You have the{" "}
-                          {value.player} cards.
+                          {value.player[0]} and {value.player[1]} cards.
                         </FormLabel>
                         <FormControl>
                           <QuizChoices
