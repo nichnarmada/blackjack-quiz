@@ -14,40 +14,39 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { QuizChoices } from "./quizChoices"
+import { questionList } from "@/types/quiz"
 
 const choices = ["hit", "stand", "double", "split", "surrender"]
 
-const questions = [
-  {
+const questions: questionList = {
+  q1: {
     dealer: "10",
     player: ["6", "5"],
   },
-  {
+  q2: {
     dealer: "10",
     player: ["6", "5"],
   },
-  {
+  q3: {
     dealer: "10",
     player: ["6", "5"],
   },
-  {
+  q4: {
     dealer: "10",
     player: ["6", "5"],
   },
-  {
+  q5: {
     dealer: "10",
     player: ["6", "5"],
   },
-]
+}
 
 const QuizSchema = z.object({
-  questions: z
-    .array(
-      z.object({
-        answer: z.enum(["hit", "stand", "double", "split", "surrender"]),
-      })
-    )
-    .length(5),
+  q1: z.enum(["hit", "stand", "double", "split", "surrender"]),
+  q2: z.enum(["hit", "stand", "double", "split", "surrender"]),
+  q3: z.enum(["hit", "stand", "double", "split", "surrender"]),
+  q4: z.enum(["hit", "stand", "double", "split", "surrender"]),
+  q5: z.enum(["hit", "stand", "double", "split", "surrender"]),
 })
 
 export default function Quiz() {
@@ -75,16 +74,16 @@ export default function Quiz() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="w-2/3 space-y-6"
               >
-                {questions.map((question, index) => (
+                {Object.entries(questions).map(([key, value], index) => (
                   <FormField
                     control={form.control}
-                    name="questions"
+                    name={key as keyof questionList}
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <h2>Question {index + 1}</h2>
                         <FormLabel>
-                          Dealer has a {question.dealer} card. You have the{" "}
-                          {question.player} cards.
+                          Dealer has a {value.dealer} card. You have the{" "}
+                          {value.player} cards.
                         </FormLabel>
                         <FormControl>
                           <QuizChoices
@@ -94,11 +93,11 @@ export default function Quiz() {
                             className="flex flex-col space-y-1"
                           />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
                 ))}
+                <FormMessage />
                 <Button type="submit">Submit</Button>
               </form>
             </Form>
