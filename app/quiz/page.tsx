@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { QuizChoices } from "./quizChoices"
 import { choices, questionList } from "@/types/quiz"
-import { useRouter } from "next/navigation"
+import { redirect } from "next/navigation"
 
 const questions: questionList = {
   q1: {
@@ -49,15 +49,13 @@ const QuizSchema = z.object({
 })
 
 export default function Quiz() {
-  const router = useRouter()
-
   const form = useForm<z.infer<typeof QuizSchema>>({
     resolver: zodResolver(QuizSchema),
   })
 
   function onSubmit(data: z.infer<typeof QuizSchema>) {
     console.log("Submitted data:", data)
-    router.push("/result")
+    redirect("/result")
   }
 
   return (
@@ -78,6 +76,7 @@ export default function Quiz() {
               >
                 {Object.entries(questions).map(([key, value], index) => (
                   <FormField
+                    key={key}
                     control={form.control}
                     name={key as keyof questionList}
                     render={({ field }) => (

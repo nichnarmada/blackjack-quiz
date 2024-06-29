@@ -8,8 +8,8 @@ export default function Quiz() {
         <h1>Quiz Results</h1>
         <h2>Congratulations for Completing the Quiz!</h2>
         <p>
-          You've just completed the Blackjack Perfect Strategy Daily Quiz. Let's
-          see how well you did!
+          You`&apos;`ve just completed the Blackjack Perfect Strategy Daily
+          Quiz. Let`&apos;`s see how well you did!
         </p>
         <h2>Your Score:</h2>
         <h1 className="text-center">

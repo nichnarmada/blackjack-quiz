@@ -10,8 +10,11 @@ export interface QuizQuestionProps extends RadixRadioGroup.RadioGroupProps {
 export const QuizChoices = ({ choices, ...props }: QuizQuestionProps) => {
   return (
     <RadioGroup className="flex flex-col space-y-1" {...props}>
-      {choices.map((choice, index) => (
-        <FormItem className="flex items-center space-x-3 space-y-0">
+      {choices.map((choice) => (
+        <FormItem
+          key={choice}
+          className="flex items-center space-x-3 space-y-0"
+        >
           <FormControl>
             <RadioGroupItem value={choice} />
           </FormControl>

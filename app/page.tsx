@@ -9,10 +9,10 @@ export default function Home() {
         <h3>Welcome to the Ultimate Blackjack Quiz!</h3>
         <p>
           Test your knowledge and sharpen your skills with our daily quiz. Each
-          day, you'll face new challenges designed to help you master the
-          perfect strategy for playing Blackjack. Whether you're a beginner
-          looking to learn the basics or an experienced player aiming to refine
-          your tactics, this quiz is for you.
+          day, you`&apos;`ll face new challenges designed to help you master the
+          perfect strategy for playing Blackjack. Whether you`&apos;`re a
+          beginner looking to learn the basics or an experienced player aiming
+          to refine your tactics, this quiz is for you.
         </p>
         <h3>How It Works:</h3>
         <ul>
@@ -26,18 +26,20 @@ export default function Home() {
           </li>
           <li>
             Track Progress: Monitor your progress over time and see how much
-            you've improved.
+            you`&apos;`ve improved.
           </li>
           <li>
             Compete and Compare: See how you stack up against other players.
           </li>
         </ul>
-        <p>Are you ready to become a Blackjack pro? Let's get started!</p>
+        <p>
+          Are you ready to become a Blackjack pro? Let`&apos;`s get started!
+        </p>
       </div>
 
       <div className="text-center">
         <Button size="lg" asChild>
-          <Link href="/quiz">Start Today's Quiz!</Link>
+          <Link href="/quiz">Start Today`&apos;`s Quiz!</Link>
         </Button>
       </div>
     </main>
