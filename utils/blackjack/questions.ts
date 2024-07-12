@@ -11,8 +11,8 @@ export interface BlackjackQuestion {
 // soft totals
 // hard totals
 
-// DAS not offered as default
-// For DAS offered, turn on and off through settings
+// DAS offered as default
+// For DAS not offered, turn on and off through settings
 
 export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["A", "A"], dealerCard: "A", correctMove: "split" },
@@ -111,7 +111,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["A", "J"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["A", "Q"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["A", "K"], dealerCard: "2", correctMove: "stand" },
-  { playerHand: ["2", "2"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["2", "6"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["2", "7"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["2", "8"], dealerCard: "2", correctMove: "stand" },
@@ -120,7 +119,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["2", "J"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["2", "Q"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["2", "K"], dealerCard: "2", correctMove: "stand" },
-  { playerHand: ["3", "3"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["3", "5"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["3", "6"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["3", "7"], dealerCard: "2", correctMove: "stand" },
@@ -149,7 +147,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["5", "J"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["5", "Q"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["5", "K"], dealerCard: "2", correctMove: "stand" },
-  { playerHand: ["6", "6"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["6", "7"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["6", "8"], dealerCard: "2", correctMove: "stand" },
   { playerHand: ["6", "9"], dealerCard: "2", correctMove: "stand" },
@@ -198,7 +195,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["A", "J"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["A", "Q"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["A", "K"], dealerCard: "3", correctMove: "stand" },
-  { playerHand: ["2", "2"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["2", "6"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["2", "7"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["2", "8"], dealerCard: "3", correctMove: "stand" },
@@ -207,7 +203,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["2", "J"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["2", "Q"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["2", "K"], dealerCard: "3", correctMove: "stand" },
-  { playerHand: ["3", "3"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["3", "5"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["3", "6"], dealerCard: "3", correctMove: "stand" },
   { playerHand: ["3", "7"], dealerCard: "3", correctMove: "stand" },
@@ -391,7 +386,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["3", "J"], dealerCard: "5", correctMove: "stand" },
   { playerHand: ["3", "Q"], dealerCard: "5", correctMove: "stand" },
   { playerHand: ["3", "K"], dealerCard: "5", correctMove: "stand" },
-  { playerHand: ["4", "4"], dealerCard: "5", correctMove: "stand" },
   { playerHand: ["4", "5"], dealerCard: "5", correctMove: "stand" },
   { playerHand: ["4", "6"], dealerCard: "5", correctMove: "stand" },
   { playerHand: ["4", "7"], dealerCard: "5", correctMove: "stand" },
@@ -478,7 +472,6 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["3", "J"], dealerCard: "6", correctMove: "stand" },
   { playerHand: ["3", "Q"], dealerCard: "6", correctMove: "stand" },
   { playerHand: ["3", "K"], dealerCard: "6", correctMove: "stand" },
-  { playerHand: ["4", "4"], dealerCard: "6", correctMove: "stand" },
   { playerHand: ["4", "5"], dealerCard: "6", correctMove: "stand" },
   { playerHand: ["4", "6"], dealerCard: "6", correctMove: "stand" },
   { playerHand: ["4", "7"], dealerCard: "6", correctMove: "stand" },
@@ -1144,7 +1137,7 @@ export const blackjackQuestions: BlackjackQuestion[] = [
   { playerHand: ["K", "K"], dealerCard: "K", correctMove: "stand" },
 ]
 
-export const dasOffered: BlackjackQuestion[] = [
+export const dasQuestions: BlackjackQuestion[] = [
   { playerHand: ["2", "2"], dealerCard: "2", correctMove: "split" },
   { playerHand: ["2", "2"], dealerCard: "3", correctMove: "split" },
   { playerHand: ["3", "3"], dealerCard: "2", correctMove: "split" },
@@ -1153,3 +1146,17 @@ export const dasOffered: BlackjackQuestion[] = [
   { playerHand: ["4", "4"], dealerCard: "6", correctMove: "split" },
   { playerHand: ["6", "6"], dealerCard: "2", correctMove: "split" },
 ]
+
+export const noDasQuestions: BlackjackQuestion[] = [
+  { playerHand: ["2", "2"], dealerCard: "2", correctMove: "hit" },
+  { playerHand: ["2", "2"], dealerCard: "3", correctMove: "hit" },
+  { playerHand: ["3", "3"], dealerCard: "2", correctMove: "hit" },
+  { playerHand: ["3", "3"], dealerCard: "3", correctMove: "hit" },
+  { playerHand: ["4", "4"], dealerCard: "5", correctMove: "hit" },
+  { playerHand: ["4", "4"], dealerCard: "6", correctMove: "hit" },
+  { playerHand: ["6", "6"], dealerCard: "2", correctMove: "hit" },
+]
+
+export const getQuestionList = (das: boolean = true): BlackjackQuestion[] => {
+  return [...blackjackQuestions, ...(das ? dasQuestions : noDasQuestions)]
+}
