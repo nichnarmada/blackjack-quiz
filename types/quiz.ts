@@ -1,16 +1,34 @@
 import { z } from "zod"
 
-export type question = {
-  dealer: string
-  player: string[]
+export interface QuizQuestion {
+  id: string
+  question: string
+  options: string[]
+  correctAnswer: string
 }
 
-export type questionList = {
-  q1: question
-  q2: question
-  q3: question
-  q4: question
-  q5: question
+export interface Quiz {
+  id: string
+  questions: QuizQuestion[]
+  createdAt: string
 }
 
-export const choices = z.enum(["hit", "stand", "double", "split", "surrender"])
+export interface QuizResult {
+  userId: string
+  quizId: string
+  answers: {
+    questionId: string
+    selectedAnswer: string
+  }[]
+  correctAnswersCount: number
+  createdAt: string
+}
+
+export const quizOptions = z.enum([
+  "hit",
+  "stand",
+  "double",
+  "split",
+  "surrender",
+])
+export type QuizOptions = z.infer<typeof quizOptions>

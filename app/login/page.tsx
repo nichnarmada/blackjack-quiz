@@ -65,7 +65,7 @@ export default function LoginPage() {
           </div>
         </form>
         <div className="text-center text-sm text-muted-foreground">
-          Don`&apos;`t have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Button asChild variant="link">
             <Link href="/signUp" prefetch={false}>
               Sign up
