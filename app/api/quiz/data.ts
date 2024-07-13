@@ -18,54 +18,50 @@ export interface Quiz {
 
 export const options = ["hit", "stand", "double", "split", "surrender"]
 
-export const quizzes = {
-  id: 1,
-  questions: [
-    {
-      id: 1,
-      question: {
-        dealer: "A",
-        player: ["5", "6"],
-      },
-      options,
-      correctAnswer: "double",
+export const questions: Question[] = [
+  {
+    id: 1,
+    question: {
+      dealer: "A",
+      player: ["5", "6"],
     },
-    {
-      id: 2,
-      question: {
-        dealer: "J",
-        player: ["K", "6"],
-      },
-      options,
-      correctAnswer: "hit",
+    options,
+    correctAnswer: "double",
+  },
+  {
+    id: 2,
+    question: {
+      dealer: "J",
+      player: ["K", "6"],
     },
-    {
-      id: 3,
-      question: {
-        dealer: "8",
-        player: ["4", "K"],
-      },
-      options,
-      correctAnswer: "hit",
+    options,
+    correctAnswer: "hit",
+  },
+  {
+    id: 3,
+    question: {
+      dealer: "8",
+      player: ["4", "K"],
     },
-    {
-      id: 4,
-      question: {
-        dealer: "9",
-        player: ["7", "3"],
-      },
-      options,
-      correctAnswer: "double",
+    options,
+    correctAnswer: "hit",
+  },
+  {
+    id: 4,
+    question: {
+      dealer: "9",
+      player: ["7", "3"],
     },
-    {
-      id: 5,
-      question: {
-        dealer: "9",
-        player: ["K", "Q"],
-      },
-      options,
-      correctAnswer: "stand",
+    options,
+    correctAnswer: "double",
+  },
+  {
+    id: 5,
+    question: {
+      dealer: "9",
+      player: ["K", "Q"],
     },
-  ] as Question[],
-  createdAt: "2024-07-01",
-}
+    options,
+    correctAnswer: "stand",
+  },
+]

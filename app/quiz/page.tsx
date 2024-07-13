@@ -76,7 +76,7 @@ export default function Quiz() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="w-2/3 space-y-6"
               >
-                {quizData?.map((question, index) => (
+                {quizData?.questions.map((question, index) => (
                   <FormField
                     key={question.id}
                     control={form.control}
