@@ -14,41 +14,35 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { QuizChoices } from "./quizChoices"
-import { choices, questionList } from "@/types/quiz"
 import { redirect } from "next/navigation"
+import { Question, quizOptions, type Quiz } from "@/types/quiz"
+import { useEffect, useState } from "react"
+import { getQuiz } from "./action"
+import useSWR, { Fetcher } from "swr"
+import { Loading } from "@/components/blocks/loading"
 
-const questions: questionList = {
-  q1: {
-    dealer: "10",
-    player: ["6", "5"],
-  },
-  q2: {
-    dealer: "10",
-    player: ["6", "5"],
-  },
-  q3: {
-    dealer: "10",
-    player: ["6", "5"],
-  },
-  q4: {
-    dealer: "10",
-    player: ["6", "5"],
-  },
-  q5: {
-    dealer: "10",
-    player: ["6", "5"],
-  },
-}
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-const QuizSchema = z.object({
-  q1: choices,
-  q2: choices,
-  q3: choices,
-  q4: choices,
-  q5: choices,
+// Schema for a single question's answer
+export const questionAnswerSchema = z.object({
+  questionId: z.number(),
+  answer: quizOptions,
+})
+
+// Schema for the entire quiz form submission
+export const QuizSchema = z.object({
+  questions: z.array(questionAnswerSchema),
 })
 
 export default function Quiz() {
+  const [questions, setQuestions] = useState<Question[]>([])
+
+  const {
+    data: quizData,
+    error,
+    isLoading,
+  } = useSWR<Quiz, Error>("http://localhost:3000/api/quiz", fetcher)
+
   const form = useForm<z.infer<typeof QuizSchema>>({
     resolver: zodResolver(QuizSchema),
   })
@@ -56,6 +50,14 @@ export default function Quiz() {
   function onSubmit(data: z.infer<typeof QuizSchema>) {
     console.log("Submitted data:", data)
     redirect("/result")
+  }
+
+  if (isLoading) {
+    return <Loading />
+  }
+
+  if (error) {
+    return <p>Error</p>
   }
 
   return (
@@ -67,28 +69,29 @@ export default function Quiz() {
             Test your knowledge with our fun and challenging quiz!
           </p>
         </div>
-        <div className="mt-10 space-y-8">
+        <div className="mt-2 space-y-8">
           <div className="bg-background rounded-lg p-6">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="w-2/3 space-y-6"
               >
-                {Object.entries(questions).map(([key, value], index) => (
+                {quizData?.map((question, index) => (
                   <FormField
-                    key={key}
+                    key={question.id}
                     control={form.control}
-                    name={key as keyof questionList}
+                    name={question.id.toString()}
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <h2>Question {index + 1}</h2>
                         <FormLabel>
-                          Dealer has a {value.dealer} card. You have the{" "}
-                          {value.player[0]} and {value.player[1]} cards.
+                          Dealer has a {question.question.dealer} card. You have
+                          the {question.question.player[0]} and{" "}
+                          {question.question.player[1]} cards.
                         </FormLabel>
                         <FormControl>
                           <QuizChoices
-                            choices={choices.options}
+                            choices={question.options}
                             onValueChange={field.onChange}
                             // defaultValue={field.value}
                             className="flex flex-col space-y-1"

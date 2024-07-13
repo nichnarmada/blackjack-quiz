@@ -1,15 +1,20 @@
 import { z } from "zod"
 
-export interface QuizQuestion {
-  id: string
-  question: string
+export type question = {
+  dealer: string
+  player: string[]
+}
+
+export interface Question {
+  id: number
+  question: question
   options: string[]
   correctAnswer: string
 }
 
 export interface Quiz {
-  id: string
-  questions: QuizQuestion[]
+  id: number
+  questions: Question[]
   createdAt: string
 }
 
