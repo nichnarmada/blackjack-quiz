@@ -13,30 +13,25 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { QuizChoices } from "./quizChoices"
 import { redirect } from "next/navigation"
-import { Question, quizOptions, type Quiz } from "@/types/quiz"
-import { useEffect, useState } from "react"
-import { getQuiz } from "./action"
-import useSWR, { Fetcher } from "swr"
+import { Question, quizOptions, quizOptionsEnum, type Quiz } from "@/types/quiz"
+import { useState } from "react"
+import useSWR from "swr"
 import { Loading } from "@/components/blocks/loading"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-// Schema for a single question's answer
-export const questionAnswerSchema = z.object({
-  questionId: z.number(),
-  answer: quizOptions,
-})
-
 // Schema for the entire quiz form submission
 export const QuizSchema = z.object({
-  questions: z.array(questionAnswerSchema),
+  q1: quizOptionsEnum,
+  q2: quizOptionsEnum,
+  q3: quizOptionsEnum,
+  q4: quizOptionsEnum,
+  q5: quizOptionsEnum,
 })
 
 export default function Quiz() {
-  const [questions, setQuestions] = useState<Question[]>([])
-
   const {
     data: quizData,
     error,
@@ -80,7 +75,7 @@ export default function Quiz() {
                   <FormField
                     key={question.id}
                     control={form.control}
-                    name={question.id.toString()}
+                    name={`q${index + 1}`}
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <h2>Question {index + 1}</h2>
@@ -90,12 +85,26 @@ export default function Quiz() {
                           {question.question.player[1]} cards.
                         </FormLabel>
                         <FormControl>
-                          <QuizChoices
-                            choices={question.options}
-                            onValueChange={field.onChange}
-                            // defaultValue={field.value}
+                          <RadioGroup
                             className="flex flex-col space-y-1"
-                          />
+                            onValueChange={field.onChange}
+                            value={field.value}
+                          >
+                            {quizOptions.map((option) => (
+                              <FormItem
+                                key={option}
+                                className="flex items-center space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <RadioGroupItem value={option} />
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                  {option.charAt(0).toUpperCase() +
+                                    option.slice(1)}
+                                </FormLabel>
+                              </FormItem>
+                            ))}
+                          </RadioGroup>
                         </FormControl>
                       </FormItem>
                     )}

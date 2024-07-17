@@ -29,11 +29,13 @@ export interface QuizResult {
   createdAt: string
 }
 
-export const quizOptions = z.enum([
+export const quizOptions = ["hit", "stand", "double", "split", "surrender"]
+
+export const quizOptionsEnum = z.enum([
   "hit",
   "stand",
   "double",
   "split",
   "surrender",
 ])
-export type QuizOptions = z.infer<typeof quizOptions>
+export type QuizOptions = z.infer<typeof quizOptionsEnum>
