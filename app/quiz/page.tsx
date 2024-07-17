@@ -80,8 +80,8 @@ export default function Quiz() {
                       <FormItem className="space-y-3">
                         <h2>Question {index + 1}</h2>
                         <FormLabel>
-                          Dealer has a {question.question.dealer} card. You have
-                          the {question.question.player[0]} and{" "}
+                          Dealer has the {question.question.dealer} card. You
+                          have the {question.question.player[0]} and{" "}
                           {question.question.player[1]} cards.
                         </FormLabel>
                         <FormControl>
