@@ -14,8 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { redirect } from "next/navigation"
-import { Question, quizOptions, quizOptionsEnum, type Quiz } from "@/types/quiz"
-import { useState } from "react"
+import { quizOptions, quizOptionsEnum, type Quiz } from "@/types/quiz"
 import useSWR from "swr"
 import { Loading } from "@/components/blocks/loading"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
