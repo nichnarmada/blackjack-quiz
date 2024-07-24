@@ -18,6 +18,15 @@ export interface Quiz {
   createdAt: string
 }
 
+export interface QuizSubmission {
+  submission:
+    | {
+        question: question
+        answer: string
+      }[]
+    | undefined
+}
+
 export interface QuizResult {
   userId: string
   quizId: string

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 import {
   Form,
   FormControl,
@@ -13,13 +14,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { redirect } from "next/navigation"
-import { quizOptions, quizOptionsEnum, type Quiz } from "@/types/quiz"
-import useSWR from "swr"
+import {
+  quizOptions,
+  quizOptionsEnum,
+  QuizSubmission,
+  type Quiz,
+} from "@/types/quiz"
 import { Loading } from "@/components/blocks/loading"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { getQuiz, submitQuiz } from "./methods"
 
 // Schema for the entire quiz form submission
 export const QuizSchema = z.object({
@@ -31,26 +35,51 @@ export const QuizSchema = z.object({
 })
 
 export default function Quiz() {
+  const router = useRouter()
+
+  // Queries
   const {
     data: quizData,
-    error,
+    isError,
     isLoading,
-  } = useSWR<Quiz, Error>("http://localhost:3000/api/quiz", fetcher)
+  } = useQuery({
+    queryKey: ["quiz"],
+    queryFn: getQuiz,
+  })
+  const mutation = useMutation({
+    mutationFn: submitQuiz,
+  })
 
+  // Forms
   const form = useForm<z.infer<typeof QuizSchema>>({
     resolver: zodResolver(QuizSchema),
   })
-
   function onSubmit(data: z.infer<typeof QuizSchema>) {
-    console.log("Submitted data:", data)
-    redirect("/result")
+    // Re-map data to have dealer and player cards from question, and submitted answer
+    const quizSubmission = {
+      submission: quizData?.questions.map((q, index) => {
+        return {
+          question: q.question,
+          answer: data[`q${index + 1}`],
+        }
+      }),
+    }
+
+    mutation.mutate(quizSubmission)
+    // // Send POST request
+    // console.log("Submitted quiz data:", quizSubmission)
+    // trigger(quizSubmission)
+    // // Pass the results response to results page
+    // router.push("/result", {
+    //   query: { result: JSON.stringify(resultData) }, // Pass data through query string
+    // })
   }
 
   if (isLoading) {
     return <Loading />
   }
 
-  if (error) {
+  if (isError) {
     return <p>Error</p>
   }
 
