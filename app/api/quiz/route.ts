@@ -8,9 +8,10 @@ export async function GET(request: NextRequest) {
   const dailyQuiz = {
     id: Date().toString(),
     createdAt: Date().toString(),
-    questions: questions.map(({ id, question, options }) => ({
+    questions: questions.map(({ id, dealer_card, player_hand, options }) => ({
       id,
-      question,
+      dealer_card,
+      player_hand,
       options,
     })),
   }

@@ -1,15 +1,17 @@
 import { z } from "zod"
 
-export type question = {
-  dealer: string
-  player: string[]
+export interface QuestionAPI {
+  id: number
+  created_at: Date
+  dealer_card: string
+  player_hand: string[]
+  correct_move: string
+  correct_move_no_das?: string
+  is_das_dependent: boolean
 }
 
-export interface Question {
-  id: number
-  question: question
+export interface Question extends QuestionAPI {
   options: string[]
-  correctAnswer: string
 }
 
 export interface Quiz {
@@ -21,7 +23,7 @@ export interface Quiz {
 export interface QuizSubmission {
   submission:
     | {
-        question: question
+        questionId: number
         answer: string
       }[]
     | undefined

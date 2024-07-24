@@ -59,7 +59,7 @@ export default function Quiz() {
     const quizSubmission = {
       submission: quizData?.questions.map((q, index) => {
         return {
-          question: q.question,
+          questionId: q.id,
           answer: data[`q${index + 1}`],
         }
       }),
@@ -108,9 +108,9 @@ export default function Quiz() {
                       <FormItem className="space-y-3">
                         <h2>Question {index + 1}</h2>
                         <FormLabel>
-                          Dealer has the {question.question.dealer} card. You
-                          have the {question.question.player[0]} and{" "}
-                          {question.question.player[1]} cards.
+                          Dealer has the {question.dealer_card} card. You have
+                          the {question.player_hand[0]} and{" "}
+                          {question.player_hand[1]} cards.
                         </FormLabel>
                         <FormControl>
                           <RadioGroup

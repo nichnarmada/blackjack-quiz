@@ -1,13 +1,15 @@
-export type question = {
-  dealer: string
-  player: string[]
+export interface QuestionAPI {
+  id: number
+  created_at?: Date
+  dealer_card: string
+  player_hand: string[]
+  correct_move: string
+  correct_move_no_das?: string
+  is_das_dependent: boolean
 }
 
-export interface Question {
-  id: number
-  question: question
+export interface Question extends QuestionAPI {
   options: string[]
-  correctAnswer: string
 }
 
 export interface Quiz {
@@ -20,48 +22,43 @@ export const options = ["hit", "stand", "double", "split", "surrender"]
 
 export const questions: Question[] = [
   {
-    id: 1,
-    question: {
-      dealer: "A",
-      player: ["5", "6"],
-    },
+    id: 78,
+    dealer_card: "A",
+    player_hand: ["5", "6"],
     options,
-    correctAnswer: "double",
+    correct_move: "double",
+    is_das_dependent: false,
   },
   {
-    id: 2,
-    question: {
-      dealer: "J",
-      player: ["K", "6"],
-    },
+    id: 916,
+    dealer_card: "J",
+    player_hand: ["6", "K"],
     options,
-    correctAnswer: "hit",
+    correct_move: "hit",
+    is_das_dependent: false,
   },
   {
-    id: 3,
-    question: {
-      dealer: "8",
-      player: ["4", "K"],
-    },
+    id: 650,
+    dealer_card: "8",
+    player_hand: ["4", "K"],
     options,
-    correctAnswer: "hit",
+    correct_move: "hit",
+    is_das_dependent: false,
   },
   {
-    id: 4,
-    question: {
-      dealer: "9",
-      player: ["7", "3"],
-    },
+    id: 717,
+    dealer_card: "9",
+    player_hand: ["3", "7"],
     options,
-    correctAnswer: "double",
+    correct_move: "double",
+    is_das_dependent: false,
   },
   {
-    id: 5,
-    question: {
-      dealer: "9",
-      player: ["K", "Q"],
-    },
+    id: 777,
+    dealer_card: "9",
+    player_hand: ["Q", "K"],
     options,
-    correctAnswer: "stand",
+    correct_move: "stand",
+    is_das_dependent: false,
   },
 ]
