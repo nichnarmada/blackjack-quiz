@@ -8,7 +8,7 @@ type DailyQuiz = {
   question_ids: number[]
 }
 
-export default async function handler(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const supabase = createClient()
 
   if (req.method !== "POST") {
