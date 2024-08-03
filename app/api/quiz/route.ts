@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   // const supabase = createClient()
 
   const dailyQuiz = {
-    id: Date().toString(),
+    id: 1,
     createdAt: Date().toString(),
     questions: questions.map(({ id, dealer_card, player_hand, options }) => ({
       id,

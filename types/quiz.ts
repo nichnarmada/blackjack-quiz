@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export interface QuestionAPI {
   id: number
-  created_at: Date
+  created_at: string
   dealer_card: string
   player_hand: string[]
   correct_move: string
@@ -21,6 +21,7 @@ export interface Quiz {
 }
 
 export interface QuizSubmission {
+  quizId: number
   submission:
     | {
         questionId: number
@@ -30,11 +31,12 @@ export interface QuizSubmission {
 }
 
 export interface QuizResult {
-  userId: string
-  quizId: string
+  // userId: string
+  // quizId: string
   answers: {
-    questionId: string
-    selectedAnswer: string
+    questionId: number
+    answer: string
+    correctAnswer: string
   }[]
   correctAnswersCount: number
   createdAt: string
