@@ -45,6 +45,7 @@ export default function Quiz() {
     data: quizData,
     isError,
     isLoading,
+    error,
   } = useQuery({
     queryKey: ["quiz"],
     queryFn: getQuiz,
@@ -85,7 +86,12 @@ export default function Quiz() {
   }
 
   if (isError) {
-    return <p>Error</p>
+    return (
+      <>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+      </>
+    )
   }
 
   return (
