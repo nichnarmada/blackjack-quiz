@@ -34,6 +34,9 @@ const QuizSchema = z.object({
   q5: quizOptionsEnum,
 })
 
+// Define the type for the keys based on the schema
+type QuizFormFieldKeys = `q${1 | 2 | 3 | 4 | 5}`
+
 export default function Quiz() {
   const router = useRouter()
 
@@ -61,7 +64,7 @@ export default function Quiz() {
       submission: quizData?.questions.map((q, index) => {
         return {
           questionId: q.id,
-          answer: data[`q${index + 1}`],
+          answer: data[`q${index + 1}` as keyof typeof data],
         }
       }),
     }
@@ -105,7 +108,7 @@ export default function Quiz() {
                   <FormField
                     key={question.id}
                     control={form.control}
-                    name={`q${index + 1}`}
+                    name={`q${index + 1}` as QuizFormFieldKeys}
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <h2>Question {index + 1}</h2>
