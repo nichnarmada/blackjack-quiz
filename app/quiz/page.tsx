@@ -26,7 +26,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { getQuiz, submitQuiz } from "./methods"
 
 // Schema for the entire quiz form submission
-export const QuizSchema = z.object({
+const QuizSchema = z.object({
   q1: quizOptionsEnum,
   q2: quizOptionsEnum,
   q3: quizOptionsEnum,
@@ -57,6 +57,7 @@ export default function Quiz() {
   function onSubmit(data: z.infer<typeof QuizSchema>) {
     // Re-map data to have dealer and player cards from question, and submitted answer
     const quizSubmission = {
+      quizId: 1,
       submission: quizData?.questions.map((q, index) => {
         return {
           questionId: q.id,
@@ -66,6 +67,7 @@ export default function Quiz() {
     }
 
     mutation.mutate(quizSubmission)
+    console.log(mutation.data)
     // // Send POST request
     // console.log("Submitted quiz data:", quizSubmission)
     // trigger(quizSubmission)
