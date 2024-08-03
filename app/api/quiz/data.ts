@@ -1,6 +1,6 @@
 export interface QuestionAPI {
   id: number
-  created_at?: Date
+  created_at?: string
   dealer_card: string
   player_hand: string[]
   correct_move: string
